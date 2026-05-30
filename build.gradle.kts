@@ -11,10 +11,14 @@ repositories {
     mavenLocal()
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://storehouse.okaeri.eu/repository/maven-public/")
-    maven("https://maven.pkg.github.com/Navio1430/NavAuth") {
-        credentials {
-            username = project.findProperty("gpr.user") as String? ?: ""
-            password = project.findProperty("gpr.key") as String? ?: ""
+    val gprUser: String? by project
+    val gprKey: String? by project
+    if (gprUser != null && gprKey != null) {
+        maven("https://maven.pkg.github.com/Navio1430/NavAuth") {
+            credentials {
+                username = gprUser
+                password = gprKey
+            }
         }
     }
 }

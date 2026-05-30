@@ -19,8 +19,19 @@ jobs:
           java-version: "21"
           distribution: "temurin"
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+      - name: Checkout and build NavAuth for mavenLocal
+        uses: actions/checkout@v4
+        with:
+          repository: Navio1430/NavAuth
+          path: NavAuth
+
+      - name: Publish NavAuth to mavenLocal
+        working-directory: ./NavAuth
+        run: |
+          chmod +x gradlew
+          ./gradlew publishToMavenLocal
+        env:
+          GITHUB_TOKEN: ""
 
       - name: Make gradlew executable
         run: chmod +x gradlew
